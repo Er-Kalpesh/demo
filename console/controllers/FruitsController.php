@@ -31,6 +31,13 @@ class FruitsController extends Controller
             
         }
 
-        echo $count." number of fruits imported succesfully.";
+        $message = $count." number of fruits imported succesfully.";
+
+        Yii::$app->mailer->compose()
+            ->setFrom('from@domain.com')
+            ->setTo('to@domain.com')
+            ->setSubject($message)
+            ->setTextBody($message)
+            ->send();
     }
 }

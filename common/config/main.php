@@ -21,6 +21,13 @@ return [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ],
+        'mailer' => [
+            'class' => 'yii\symfonymailer\Mailer',
+            'useFileTransport' => false,
+            'transport' => [
+                'dsn' => 'smtp://user:pass@smtp.example.com:465',
+            ],
+        ],
     ],
     'on beforeRequest' => function () {
         Yii::$app->setTimeZone('Europe/Athens');
