@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Fruits', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Favorite Fruits', ['favorite'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -39,6 +40,17 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nutritions:ntext',
             //'created_at',
             //'updated_at',
+            [
+                'format' => 'raw',
+                'attribute' => 'is_favorite',
+                'value'=>function($model){
+                    if(empty($model->is_favorite)){
+                        return Html::a("Add to favorite", ['/fruits/add-favorite', 'id' => $model->id]); 
+                    }else{
+                        return "Added";
+                    }   
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Fruits $model, $key, $index, $column) {

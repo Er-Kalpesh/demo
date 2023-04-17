@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use linslin\yii2\curl;
+use Yii;
 /**
  * FruitsController implements the CRUD actions for Fruits model.
  */
@@ -147,4 +148,24 @@ class FruitsController extends Controller
             $fruit->save();
         }
     }   
+
+    public function actionAddFavorite($id)
+    {
+        $model = $this->findModel($id);
+        $model->is_favorite = 1;
+        $model->save();
+        Yii::$app->session->setFlash('success', "Fruit ".$model->name." added to favorite successfully.");
+        return $this->redirect(['index']);
+    }
+
+    public function actionFavorite(){
+        $searchModel = new FruitsSearch();
+        $searchModel->is_favorite = 1;
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 }

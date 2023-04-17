@@ -35,7 +35,7 @@ class Fruits extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ext_id', 'created_at', 'updated_at'], 'integer'],
+            [['ext_id', 'created_at', 'updated_at','is_favorite'], 'integer'],
             [['nutritions'], 'string'],
             [['name', 'family', 'fruit_order', 'genus'], 'string', 'max' => 255],
         ];
@@ -54,6 +54,7 @@ class Fruits extends \yii\db\ActiveRecord
             'fruit_order' => 'Fruit Order',
             'genus' => 'Genus',
             'nutritions' => 'Nutritions',
+            'is_favorite' => 'Favourite',
             'created_at' => 'Created At',
             'updated_at' => 'Modified At',
         ];

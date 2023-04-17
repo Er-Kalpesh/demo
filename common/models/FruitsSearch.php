@@ -17,7 +17,7 @@ class FruitsSearch extends Fruits
     public function rules()
     {
         return [
-            [['id', 'ext_id', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'ext_id', 'created_at', 'updated_at','is_favorite'], 'integer'],
             [['name', 'family', 'fruit_order', 'genus', 'nutritions'], 'safe'],
         ];
     }
@@ -47,13 +47,17 @@ class FruitsSearch extends Fruits
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
+        
         $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
+        }
+
+        if(!empty($this->is_favorite)){
+            $query->andWhere(['is_favorite'=>'1']);
         }
 
         // grid filtering conditions
